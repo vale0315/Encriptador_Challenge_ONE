@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<!//lang="es-419" (latinoamerica)///lang="es-es" (españa)>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Encriptador de texto</title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="desafio-encriptador.css">
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Inter'>
+    </head>
+
+    <header>
+        <img class="logo" src="Logo@2x.png">
+    </header>
+
+    <body>
+        <main>
+            <div>
+                <textarea id="entradatexto" rows="15" cols="40" placeholder="Ingrese su texto aquí" oninput="hideCopiar()"></textarea>
+                <p> &#x26A0 Solo letras minúsculas y sin acentos</p>
+            </div>
+
+            <div>
+                <button id="botonencriptar">Encriptar</button>
+                <button id="botondesencriptar">Desencriptar</button>
+            </div>
+
+            <div id="salidaencriptada">
+
+                <textarea id="salidatexto" readonly></textarea>
+
+                    <div id="notextoencriptado">
+                        <img id="imagen" src="imagen.png" alt="Imagen">
+                        <p class="mensajenoencontrado">Ningún mensaje fue encontrado</p>
+                        <p class="ingresaeltexto">Ingresa el texto que desees encriptar o desencriptar</p>
+                    </div>
+
+            <button id="copiar" onclick="copiarTexto()">Copiar</button>
+                
+            </div>
+        </main>
+    </body>
+
+    <footer>
+        <p class="creditos">&copy Elaborado por Laura Pelaez - Mayo 2023</p>
+    </footer>
+
+    <script>
+
+        var entradaTexto = document.getElementById('entradatexto');
+        var botonEncriptar = document.getElementById('botonencriptar');
+        var botonDesencriptar = document.getElementById('botondesencriptar');
+        var salidaTexto = document.getElementById('salidatexto');
+        var copiarBoton = document.getElementById('copiar')
+
+        function hideCopiar() {
+            var inputText = entradaTexto.value;
+            var outputText = salidaTexto.value;
+            if (outputText.length === 0) {
+                copiarBoton.style.display = "none";
+            } else {
+                copiarBoton.style.display = "block";
+            }
+        }
+
+
+        // Function to encrypt text
+        function encriptarTexto() {
+            var inputText = document.getElementById("entradatexto").value;
+            var outputText = inputText.replaceAll("e","enter").replaceAll("i","imes").replaceAll("a","ai").replaceAll("o","ober").replaceAll("u","ufat");
+            document.getElementById("salidatexto").value = outputText;
+            document.getElementById("notextoencriptado").style.display = "none";
+            hideCopiar();
+            return;
+        }
+
+
+        // Function to decrypt text
+        function desencriptarTexto() {
+            var inputText = document.getElementById("entradatexto").value;
+            var outputText = inputText.replaceAll("enter","e").replaceAll("imes","i").replaceAll("ai","a").replaceAll("ober","o").replaceAll("ufat","u");
+            document.getElementById("salidatexto").value = outputText;
+            document.getElementById("notextoencriptado").style.display = "none";
+            hideCopiar();
+            return;
+        }
+
+        // Function to copy text to clipboard
+        function copiarTexto() {
+            var textoEncriptado = document.getElementById("salidatexto");
+            textoEncriptado.select();
+            document.execCommand("copy");
+            hideCopiar();
+        }
+
+        document.getElementById("botonencriptar").addEventListener("click", encriptarTexto);
+        document.getElementById("botondesencriptar").addEventListener("click", desencriptarTexto);
+        document.getElementById("copiar").addEventListener("click", copiarTexto);
+        window.onload = function() {
+            hideCopiar();
+        };
+            
+    </script>
+
+</html>
+
